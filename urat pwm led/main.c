@@ -5,18 +5,6 @@ sbit led1=P2^1;
 unsigned char receive_byte=0x00;
 int a=10;
 
-//char zhuan16_10 (int he)
-//{
-//int re=0;   // 保存转换为10进制的结果
-//int k=16;   // 16进制
-//int n=1;    // 位权
-//re += (he%10)*n;  // 取出各位位码值，并乘以对应的位权值
-//he /= 10;   // 去掉16进制数的最低位，次低位变为最低位
-//n *= k;     // 位权乘以16
-//return re;
-//}
-
-
 int pwm()
 {
 	// 占空比 
