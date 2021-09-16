@@ -1,0 +1,233 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        09/16/2021  17:24:15  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\软件\KU5\C51\BIN\BL51.EXE .\Objects\main.obj, .\Objects\urat.obj, .\Objects\Delay.obj TO .\Objects\proj PRINT (.\List
+>> ings\proj.m51) DISABLEWARNING (16)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\main.obj (MAIN)
+  .\Objects\urat.obj (URAT)
+  .\Objects\Delay.obj (DELAY)
+  D:\软件\KU5\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\软件\KU5\C51\LIB\C51S.LIB (?C?IMUL)
+  D:\软件\KU5\C51\LIB\C51S.LIB (?C?SIDIV)
+  D:\软件\KU5\C51\LIB\C51S.LIB (?C_INIT)
+  D:\软件\KU5\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  .\Objects\proj (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         ?DT?_ZHUAN16_10?MAIN
+            DATA    000CH     0003H     UNIT         ?DT?MAIN
+            DATA    000FH     0002H     UNIT         _DATA_GROUP_
+            IDATA   0011H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     001EH     UNIT         ?PR?PWM?MAIN
+                    0021H     0002H                  *** GAP ***
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     009DH     UNIT         ?C?LIB_CODE
+            CODE    00C3H     008CH     UNIT         ?C_C51STARTUP
+            CODE    014FH     0045H     UNIT         ?PR?_ZHUAN16_10?MAIN
+            CODE    0194H     001BH     UNIT         ?PR?UARTINIT?URAT
+            CODE    01AFH     0019H     UNIT         ?PR?MAIN?MAIN
+            CODE    01C8H     0014H     UNIT         ?PR?_DELAY?DELAY
+            CODE    01DCH     000BH     UNIT         ?PR?_URAT_SEND?URAT
+            CODE    01E7H     0009H     UNIT         ?PR?URAT_RECEIVE?MAIN
+            CODE    01F0H     0008H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\proj (MAIN)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/16/2021  17:24:15  PAGE 2
+
+
+
+?PR?MAIN?MAIN                  000FH    0002H
+  +--> ?PR?UARTINIT?URAT
+  +--> ?PR?_URAT_SEND?URAT
+  +--> ?PR?PWM?MAIN
+
+?PR?PWM?MAIN                   -----    -----
+  +--> ?PR?_DELAY?DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\proj (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:000CH         PUBLIC        receive_byte
+  D:00A0H         PUBLIC        P2
+  C:01E7H         PUBLIC        urat_receive
+  B:0098H.0       PUBLIC        RI
+  C:01AFH         PUBLIC        main
+  D:0099H         PUBLIC        SBUF
+  C:014FH         PUBLIC        _zhuan16_10
+  C:0003H         PUBLIC        pwm
+  D:000DH         PUBLIC        a
+  B:00A0H.1       PUBLIC        led1
+  -------         PROC          _ZHUAN16_10
+  D:0002H         SYMBOL        he
+  -------         DO            
+  D:0008H         SYMBOL        re
+  D:000AH         SYMBOL        k
+  D:0082H         SYMBOL        n
+  -------         ENDDO         
+  C:014FH         LINE#         8
+  C:0153H         LINE#         9
+  C:0153H         LINE#         10
+  C:0158H         LINE#         11
+  C:015DH         LINE#         12
+  C:0160H         LINE#         13
+  C:0177H         LINE#         14
+  C:0182H         LINE#         15
+  C:0191H         LINE#         16
+  C:0193H         LINE#         17
+  -------         ENDPROC       _ZHUAN16_10
+  -------         PROC          PWM
+  C:0003H         LINE#         20
+  C:0003H         LINE#         21
+  C:0003H         LINE#         23
+  C:0005H         LINE#         24
+  C:0012H         LINE#         25
+  C:0014H         LINE#         26
+  C:001BH         LINE#         27
+  C:001DH         LINE#         28
+  C:0020H         LINE#         29
+  -------         ENDPROC       PWM
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/16/2021  17:24:15  PAGE 3
+
+
+  -------         PROC          MAIN
+  -------         DO            
+  D:000FH         SYMBOL        b
+  -------         ENDDO         
+  C:01AFH         LINE#         31
+  C:01AFH         LINE#         32
+  C:01AFH         LINE#         33
+  C:01B5H         LINE#         34
+  C:01B8H         LINE#         35
+  C:01BDH         LINE#         37
+  C:01BDH         LINE#         38
+  C:01BDH         LINE#         39
+  C:01C0H         LINE#         40
+  C:01C6H         LINE#         42
+  -------         ENDPROC       MAIN
+  -------         PROC          URAT_RECEIVE
+  C:01E7H         LINE#         46
+  C:01E7H         LINE#         48
+  C:01EAH         LINE#         49
+  C:01EAH         LINE#         50
+  C:01EDH         LINE#         51
+  C:01EFH         LINE#         52
+  C:01EFH         LINE#         53
+  -------         ENDPROC       URAT_RECEIVE
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        URAT
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:00A8H.7       PUBLIC        EA
+  B:00A8H.4       PUBLIC        ES
+  B:0098H.1       PUBLIC        TI
+  D:0099H         PUBLIC        SBUF
+  D:0087H         PUBLIC        PCON
+  D:0098H         PUBLIC        SCON
+  C:0194H         PUBLIC        UartInit
+  D:0089H         PUBLIC        TMOD
+  B:00A8H.3       PUBLIC        ET1
+  C:01DCH         PUBLIC        _urat_send
+  D:008DH         PUBLIC        TH1
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  -------         PROC          UARTINIT
+  C:0194H         LINE#         4
+  C:0194H         LINE#         5
+  C:0194H         LINE#         6
+  C:0197H         LINE#         7
+  C:019AH         LINE#         10
+  C:019DH         LINE#         11
+  C:01A0H         LINE#         12
+  C:01A3H         LINE#         13
+  C:01A6H         LINE#         14
+  C:01A8H         LINE#         15
+  C:01AAH         LINE#         16
+  C:01ACH         LINE#         17
+  C:01AEH         LINE#         18
+  -------         ENDPROC       UARTINIT
+  -------         PROC          _URAT_SEND
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/16/2021  17:24:15  PAGE 4
+
+
+  D:0007H         SYMBOL        sendbyte
+  C:01DCH         LINE#         20
+  C:01DCH         LINE#         21
+  C:01DCH         LINE#         23
+  C:01DEH         LINE#         24
+  C:01E1H         LINE#         25
+  C:01E3H         LINE#         27
+  C:01E6H         LINE#         28
+  -------         ENDPROC       _URAT_SEND
+  -------         ENDMOD        URAT
+
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:01C8H         PUBLIC        _Delay
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0005H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:01C8H         LINE#         2
+  C:01C8H         LINE#         3
+  C:01C8H         LINE#         5
+  C:01CCH         LINE#         6
+  C:01CCH         LINE#         7
+  C:01CEH         LINE#         8
+  C:01D0H         LINE#         10
+  C:01D0H         LINE#         11
+  C:01D2H         LINE#         12
+  C:01D4H         LINE#         13
+  C:01D9H         LINE#         14
+  C:01DBH         LINE#         15
+  -------         ENDPROC       _DELAY
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        ?C?IMUL
+  C:0026H         PUBLIC        ?C?IMUL
+  -------         ENDMOD        ?C?IMUL
+
+  -------         MODULE        ?C?SIDIV
+  C:0038H         PUBLIC        ?C?SIDIV
+  -------         ENDMOD        ?C?SIDIV
+
+  -------         MODULE        ?C?UIDIV
+  C:006EH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=18.0 xdata=0 code=502
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
