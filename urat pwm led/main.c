@@ -18,7 +18,7 @@ int pwm()
 
 void main ()
 {
-int b =0x32;
+	
 UartInit();
 urat_send (0x66);
 	
