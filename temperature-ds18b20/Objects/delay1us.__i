@@ -1,0 +1,1 @@
+"delay1us.c" OPTIMIZE (8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\delay1us.lst) TABS (2) OBJECT(.\Objects\delay1us.obj)

@@ -1,0 +1,20 @@
+C51 COMPILER V9.54   DELAY1US                                                              09/13/2021 10:56:04 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE DELAY1US
+OBJECT MODULE PLACED IN .\Objects\delay1us.obj
+COMPILER INVOKED BY: D:\k51\C51\BIN\C51.EXE delay1us.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\dela
+                    -y1us.lst) TABS(2) OBJECT(.\Objects\delay1us.obj)
+
+line level    source
+
+   1          void Delay1us()   //@11.0592MHz
+   2          {
+   3   1        _nop_();
+*** WARNING C206 IN LINE 3 OF delay1us.c: '_nop_': missing function-prototype
+*** ERROR C264 IN LINE 3 OF delay1us.c: intrinsic '_nop_': declaration/activation error
+   4   1        _nop_();
+   5   1        _nop_();
+   6   1      }
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  1 ERROR(S)

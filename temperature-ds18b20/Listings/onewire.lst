@@ -1,0 +1,96 @@
+C51 COMPILER V9.54   ONEWIRE                                                               09/15/2021 16:19:42 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE ONEWIRE
+OBJECT MODULE PLACED IN .\Objects\onewire.obj
+COMPILER INVOKED BY: D:\����\ku5\C51\BIN\C51.EXE onewire.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -onewire.lst) TABS(2) OBJECT(.\Objects\onewire.obj)
+
+line level    source
+
+   1          #include <REGX51.H>
+   2          
+   3          sbit onewire_DQ=P3^7;
+   4          
+   5          
+   6          unsigned char  onewire_init(void)
+   7          {
+   8   1        unsigned char ackbit;
+   9   1        unsigned char i;
+  10   1        onewire_DQ=1;  //看图 先拉低
+  11   1        onewire_DQ=0;
+  12   1        
+  13   1        i = 247;while (--i);   //延时500us；
+  14   1        
+  15   1        onewire_DQ=1;
+  16   1        
+  17   1        i = 32;while (--i); //延时70us；
+  18   1        ackbit=onewire_DQ;
+  19   1        
+  20   1        i = 247;while (--i);  //再延时500us；结束初始化
+  21   1        return ackbit;
+  22   1        
+  23   1      }
+  24          
+  25          void onewire_sentbit(unsigned char BIT)
+  26          {
+  27   1        unsigned char i; 
+  28   1        onewire_DQ=0;  
+  29   1        i = 4;while (--i);   //延时10us
+  30   1        onewire_DQ=BIT;      //发送bit=1时，在10us时，dq变成1，30us时判断高，表示发送了1
+  31   1                             //发送bit=0时，在10us时，dq还是0，30us时判断低，表示发送了0
+  32   1        i = 24;while (--i);  //延时50us
+  33   1        onewire_DQ=1;   //释放总线
+  34   1      }
+  35          unsigned char onewire_receivebit(void)
+  36          {
+  37   1        unsigned char i; 
+  38   1        unsigned char BIT;  //看图 先拉低
+  39   1        onewire_DQ=0;
+  40   1        
+  41   1        i = 2;while (--i);  //延时8us
+  42   1        onewire_DQ=1; //释放总线
+  43   1        i = 2;while (--i);  //延时8us 给机器反应时间
+  44   1        BIT=onewire_DQ; //接受数据
+  45   1        i = 24;while (--i); //延时48us
+  46   1        
+  47   1        return BIT;
+  48   1      }
+  49          void onewire_sendbyte(unsigned char byte)
+  50          {
+  51   1        unsigned char i;
+  52   1        for(i=0;i<8;i++)
+  53   1        {
+  54   2          onewire_sentbit(byte&(0x01<<i)); //低位在前 从后往前读数
+C51 COMPILER V9.54   ONEWIRE                                                               09/15/2021 16:19:42 PAGE 2   
+
+  55   2        }
+  56   1      }
+  57          
+  58          unsigned char onewire_receivebyte(void)
+  59          {
+  60   1        unsigned char i;
+  61   1        unsigned char byte=0x00;
+  62   1        for(i=0;i<8;i++)
+  63   1        {
+  64   2          if(onewire_receivebit()){byte|=(0x01<<i);} //byte原来是0x00，每遇到一次1，|0x01<<i 变成1，0
+             -还是0.一位一位置1
+  65   2        
+  66   2        }
+  67   1        
+  68   1        return byte;
+  69   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    122    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

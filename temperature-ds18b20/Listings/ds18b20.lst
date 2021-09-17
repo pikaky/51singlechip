@@ -1,0 +1,60 @@
+C51 COMPILER V9.54   DS18B20                                                               09/15/2021 16:19:42 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE DS18B20
+OBJECT MODULE PLACED IN .\Objects\ds18b20.obj
+COMPILER INVOKED BY: D:\����\ku5\C51\BIN\C51.EXE ds18b20.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -ds18b20.lst) TABS(2) OBJECT(.\Objects\ds18b20.obj)
+
+line level    source
+
+   1          #include <REGX51.H>
+   2          #include "onewire.h"
+   3          
+   4          #define ds18b20_skip_rom    0xcc
+   5          
+   6          void ds18b20_convert(void)
+   7          {
+   8   1      
+   9   1        onewire_init();
+  10   1        
+  11   1        onewire_sendbyte(0xcc); //看图
+  12   1        
+  13   1        onewire_sendbyte(0x44); //send 一个 convert 
+  14   1        
+  15   1      }
+  16          
+  17          
+  18          float ds18b20_readt(void)
+  19          {
+  20   1        int temp;  //int 有16个位
+  21   1        float t;
+  22   1        unsigned char tlsb,tmsb; //看图 第1个byte是lsb 第2个msb
+  23   1        onewire_init();
+  24   1        onewire_sendbyte(0xcc); //看图
+  25   1        onewire_sendbyte(0xbe); //看图
+  26   1        
+  27   1        tlsb=onewire_receivebyte();
+  28   1        tmsb=onewire_receivebyte();
+  29   1        
+  30   1        temp=(tmsb<<8)|tlsb;  //2个8位合在一起
+  31   1        t=temp/16.0;  //移走了 除回去; 2的4次方 补码
+  32   1        return t;
+  33   1        
+  34   1        
+  35   1        
+  36   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     57    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

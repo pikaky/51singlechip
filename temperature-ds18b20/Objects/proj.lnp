@@ -1,0 +1,6 @@
+".\Objects\main.obj",
+".\Objects\LCD1602.obj",
+".\Objects\ds18b20.obj",
+".\Objects\onewire.obj" 
+TO ".\Objects\proj" 
+PRINT(".\Listings\proj.m51") DISABLEWARNING (16) 
