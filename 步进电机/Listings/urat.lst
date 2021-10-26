@@ -1,0 +1,70 @@
+C51 COMPILER V9.54   URAT                                                                  10/26/2021 14:26:15 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE URAT
+OBJECT MODULE PLACED IN .\Objects\urat.obj
+COMPILER INVOKED BY: D:\����\ku5\C51\BIN\C51.EXE urat.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\ura
+                    -t.lst) OBJECT(.\Objects\urat.obj)
+
+line level    source
+
+   1          #include <REGX51.H>
+   2          
+   3          
+   4          void UartInit(void)             //9600bps@11.0592MHz
+   5          {
+   6   1              PCON &= 0x7F;           //波特率不倍速
+   7   1              SCON = 0x50;            //8位数据,可变波特率
+   8   1              //AUXR &= 0xBF;         //定时器1时钟为Fosc/12,即12T  51单片机没这个
+   9   1              //AUXR &= 0xFE;         //串口1选择定时器1为波特率发生器
+  10   1              TMOD = 0x21;    
+  11   1              TL1 = 0xFD;             //设定定时初值
+  12   1              TH1 = 0xFD;             //设定定时器重装值
+  13   1              TL0 = 0x18;             //设置定时初始值
+  14   1              TH0 = 0xFC;             //设置定时初始值
+  15   1              TF0 = 0;                //清除TF0标志
+  16   1              TR0 = 1;                //定时器0开始计时
+  17   1              ET0=1; ////禁止定时器0中断
+  18   1              PT0=0; //用低优先级
+  19   1              ET1 = 0;                //禁止定时器1中断
+  20   1              TR1 = 1;                //启动定时器1
+  21   1              EA=1;
+  22   1              ES=1;
+  23   1      }
+  24          
+  25          int urat_send (unsigned char sendbyte)
+  26          {
+  27   1              
+  28   1              SBUF=sendbyte;
+  29   1              while(TI==0);  //判断是否发送完毕 如果TI一直是0 证明没有发送完 一直循环下去 直
+             -到变成1
+  30   1              TI=0;
+  31   1              
+  32   1              return 0;
+  33   1      }
+  34          
+  35          int urat_string (unsigned char* string)  //发送字符串
+  36          {
+  37   1              while(*string)  //  判断字符串/0终止符
+  38   1              {
+  39   2              urat_send (*string++);
+  40   2              }
+  41   1              return 0;
+  42   1      }
+  43          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     89    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.54   URAT                                                                  10/26/2021 14:26:15 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

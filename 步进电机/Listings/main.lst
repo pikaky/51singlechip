@@ -1,0 +1,141 @@
+C51 COMPILER V9.54   MAIN                                                                  10/26/2021 14:26:15 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\����\ku5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\mai
+                    -n.lst) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX51.H>
+   2          #include <urat.h>
+   3          
+   4          //8步控制 1001,1100,0110,0011,0011,0110,1100,1001
+   5          //换成二进制
+   6          
+   7          unsigned char st[]={0x09,0x08,0x0c,0x04,0x06,0x02,0x03,0x01,0x09,0x08,};
+   8          
+   9          int count,n,c=0;
+  10          unsigned char receive_byte = 1;
+  11          unsigned char a=10;
+  12          
+  13          void delay(unsigned int n)
+  14          {
+  15   1              unsigned int i=0,j=0;
+  16   1              for(i=0;i<n;i++)
+  17   1              {
+  18   2                      for(j=0;j<120;j++);
+  19   2              }
+  20   1      
+  21   1      }       
+  22                  
+  23          void time_init()
+  24          {
+  25   1              PCON &= 0x7F;           //波特率不倍速
+  26   1              SCON = 0x50;            //8位数据,可变波特率
+  27   1              
+  28   1              TMOD = 0x21;    
+  29   1              
+  30   1              TL1 = 0xFD;             //设定定时初值
+  31   1              TH1 = 0xFD;             //设定定时器重装值
+  32   1              ET1 = 0;                //禁止定时器1中断
+  33   1              TR1 = 1;                //启动定时器1
+  34   1              
+  35   1              //TMOD = 0x01;          //设置定时器模式
+  36   1              TH0=(65536-50000)/256; //50ms
+  37   1              TH0=(65536-50000)%256;
+  38   1              TR0=1;
+  39   1              ET0 = 1;                //定时器0开始计时
+  40   1              
+  41   1              EA=1;
+  42   1              ES=1;
+  43   1              
+  44   1      }
+  45          
+  46                  
+  47          
+  48          void start()
+  49          {
+  50   1              int i=0;
+  51   1              for(i=0;i<7;i++)
+  52   1              {
+  53   2                      P2=st[i];
+  54   2                      delay(100);
+C51 COMPILER V9.54   MAIN                                                                  10/26/2021 14:26:15 PAGE 2   
+
+  55   2              }
+  56   1      
+  57   1              for(i=7;i>0;i--) //反转
+  58   1              {
+  59   2                      P2=st[i];
+  60   2                      delay(100);
+  61   2              }
+  62   1              
+  63   1      }
+  64          
+  65          
+  66          
+  67          int main()
+  68          {
+  69   1              time_init();
+  70   1              while(1)
+  71   1              {
+  72   2                      a=receive_byte*10;
+  73   2                      
+  74   2              }
+  75   1              
+  76   1      
+  77   1      }
+  78          
+  79          void urat_receive (void) interrupt 4    
+  80          {
+  81   1              if(RI==1)  //收到中断信号 
+  82   1              {
+  83   2              receive_byte=SBUF;      
+  84   2              RI=0;
+  85   2              }
+  86   1      }
+  87          
+  88          void time_str() interrupt 1
+  89          {
+  90   1              TH0=0x3c; //50ms
+  91   1              TH0=0xb0;
+  92   1              count++;
+  93   1              if(count==a) //20*50ms
+  94   1              {
+  95   2                      if(n<10)
+  96   2                      {
+  97   3                              P2=st[n];
+  98   3                      }
+  99   2                      if(c>9)
+ 100   2                      {
+ 101   3                      P2=st[19-c];
+ 102   3                      }
+ 103   2                      if(c==18)
+ 104   2                      {
+ 105   3                      n=0;
+ 106   3                      c=0;
+ 107   3                      }
+ 108   2                      n++;
+ 109   2                      c++;
+ 110   2                      count=0;
+ 111   2              }
+ 112   1              
+ 113   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.54   MAIN                                                                  10/26/2021 14:26:15 PAGE 3   
+
+   CODE SIZE        =    259    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     18    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

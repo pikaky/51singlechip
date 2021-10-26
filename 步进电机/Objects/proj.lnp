@@ -1,0 +1,4 @@
+".\Objects\main.obj",
+".\Objects\urat.obj" 
+TO ".\Objects\proj" 
+PRINT(".\Listings\proj.m51") DISABLEWARNING (16) 
